@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recipe Finder Dashboard</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f4f4;
+}
+
+header{
+    background:#ff6b35;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+header input{
+    width:300px;
+    max-width:90%;
+    padding:10px;
+    margin-top:15px;
+    border:none;
+    border-radius:5px;
+    font-size:16px;
+}
+
+.container{
+    width:90%;
+    margin:30px auto;
+}
+
+.recipes{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.content{
+    padding:15px;
+}
+
+.content h2{
+    margin-bottom:10px;
+}
+
+.category{
+    color:#ff6b35;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.time{
+    color:#555;
+    margin-bottom:8px;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    border:none;
+    background:#ff6b35;
+    color:white;
+    font-size:16px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#e55b2c;
+}
+</style>
+
+</head>
+<body>
+
+<header>
+
+<h1>🍽 Recipe Finder Dashboard</h1>
+
+<p>Find Delicious Recipes</p>
+
+<input
+type="text"
+id="search"
+placeholder="Search Recipe..."
+onkeyup="filterRecipes()">
+
+</header>
+
+<div class="container">
+
+<div class="recipes" id="recipes"></div>
+
+</div>
+
+<script>
+
+const recipes=[
+
+{
+name:"Veg Biryani",
+category:"Indian",
+time:"45 Minutes",
+image:"https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=600"
+},
+
+{
+name:"Margherita Pizza",
+category:"Italian",
+time:"30 Minutes",
+image:"https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600"
+},
+
+{
+name:"Burger",
+category:"Fast Food",
+time:"20 Minutes",
+image:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600"
+},
+
+{
+name:"Pasta",
+category:"Italian",
+time:"25 Minutes",
+image:"https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600"
+},
+
+{
+name:"Paneer Butter Masala",
+category:"Indian",
+time:"40 Minutes",
+image:"https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=600"
+},
+
+{
+name:"Chocolate Cake",
+category:"Dessert",
+time:"60 Minutes",
+image:"https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600"
+}
+
+];
+
+const recipeContainer=document.getElementById("recipes");
+
+function displayRecipes(list){
+
+recipeContainer.innerHTML="";
+
+list.forEach(recipe=>{
+
+recipeContainer.innerHTML+=`
+
+<div class="card">
+
+<img src="${recipe.image}" alt="${recipe.name}">
+
+<div class="content">
+
+<h2>${recipe.name}</h2>
+
+<p class="category">${recipe.category}</p>
+
+<p class="time">⏱ ${recipe.time}</p>
+
+<button onclick="viewRecipe('${recipe.name}')">
+View Recipe
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+displayRecipes(recipes);
+
+function filterRecipes(){
+
+const search=document.getElementById("search").value.toLowerCase();
+
+const filtered=recipes.filter(recipe=>
+recipe.name.toLowerCase().includes(search)
+);
+
+displayRecipes(filtered);
+
+}
+
+function viewRecipe(recipe){
+
+alert("Showing recipe details for: "+recipe);
+
+}
+
+</script>
+
+</body>
+</html>
